@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="ru.aklimov.wsdlcabinet"/>
+    <mvc:annotation-driven />
+    <mvc:resources mapping="/resources/**" location="/public/"/>
+
+    <bean id="wsdlComparator" class="ru.aklimov.wsdlcomparator.facades.impl.CompFacade"/>
+    <bean id="viewModelCreator" class="ru.aklimov.wsdlcomparator.ViewModelCreator"/>
+    <bean id="methodModelCreatorFacade" class="ru.aklimov.wsdlcomparator.facades.impl.MethodModelCreatorFacade"/>
+    <bean id="typeModelCreatorFacade" class="ru.aklimov.wsdlcomparator.facades.impl.TypeModelCreatorFacade"/>
+    <bean id="compareService" class="ru.aklimov.wsdlcabinet.service.CompareService"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+    <util:properties id="appProperties" location="/WEB-INF/app-properties.properties"/>
+
+
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/tpl/"/>
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="contextPath" value="#{ servletContext.getContextPath() }"/>
+                <entry key="TYPE_TABLE_ID_PREFIX">
+                    <util:constant static-field="ru.aklimov.wsdlcomparator.ViewModelCreator.TYPE_TABLE_ID_PREFIX"/>
+                </entry>
+            </map>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="whitespace_stripping">true</prop>
+            </props>
+        </property>
+    </bean>
+
+
+
+    <bean id="compareReqValidator" class="ru.aklimov.wsdlcabinet.service.CompareWebReqValildator"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="false"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+        <property name="requestContextAttribute" value="rc"/>
+
+    </bean>
+
+    <!--<bean id="errorMapping" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="error"/>
+        <property name="defaultStatusCode" value="500"/>
+        &lt;!&ndash;<property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error/uploadsize</prop>
+            </props>
+        </property>&ndash;&gt;
+    </bean>-->
+
+</beans>

@@ -1,0 +1,27 @@
+ul.breadcrumb{
+    background-color: transparent;
+    margin:0;
+    /*margin:auto;
+    margin-top:1em;
+    margin-bottom:1em;*/
+}
+
+.width75{
+    min-width: 75%;
+    width: 75%;
+    max-width: 75%;
+    margin:auto;
+}
+
+.td-center-middle tr td, .td-center-middle tr th{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.td-center tr td, .td-center tr th{
+    vertical-align: middle;
+}
+
+.td-middle tr td, .td-middle tr th{
+    text-align: center;
+}

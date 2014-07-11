@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch0="http://homecredit.net/homer/ws/cif/consumer"
+                  xmlns:sch1="http://homecredit.net/homer/ws/cif/customer/notification"
+                  xmlns:sch2="http://homecredit.net/homer/ws/cif/codelist/notification"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://homecredit.net/homer/ws/cif/consumer"
+                  targetNamespace="http://homecredit.net/homer/ws/cif/consumer">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://homecredit.net/homer/ws/cif/consumer"
+                   xmlns:clc="http://homecredit.net/homer/ws/cif/codelist/notification"
+                   xmlns:cn="http://homecredit.net/homer/ws/cif/customer/notification"
+                   attributeFormDefault="unqualified" elementFormDefault="unqualified"
+                   targetNamespace="http://homecredit.net/homer/ws/cif/consumer">
+            <xs:annotation>
+                <xs:documentation>Web Service deployed on systems other than CIF. This web service is used for
+                    processing
+                    notifications from CIF.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:import namespace="http://homecredit.net/homer/ws/cif/customer/notification"/>
+            <xs:import namespace="http://homecredit.net/homer/ws/cif/codelist/notification"/>
+            <xs:element name="ProcessCustomerNotificationRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="notification" type="cn:CustomerModificationNotification"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ProcessCustomerNotificationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="code" type="xs:int" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ProcessCodeListNotificationRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="notification" type="clc:CodeListChange"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ProcessCodeListNotificationResponse">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns="http://homecredit.net/homer/ws/cif/customer/notification" attributeFormDefault="unqualified"
+                   elementFormDefault="unqualified"
+                   targetNamespace="http://homecredit.net/homer/ws/cif/customer/notification">
+            <xs:annotation>
+                <xs:documentation>Notifikace o změnách na klientech jsou zasílány všem systémům po změně dat na
+                    kterémkoli klientu v
+                    CIFu. Notifikace obsahuje informace o změněných, přidaných nebo odebraných CustomerFeature a zároveň
+                    aktuální data
+                    o
+                    klientovi. CustomerFeature, které nebyly změněny nejsou v notifikaci zmíněny.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:complexType name="CustomerModificationNotification">
+                <xs:annotation>
+                    <xs:documentation>Notification about change on customer (customers in case of split/mergre
+                        operations). This notification is broadcasted to listening systems.
+
+                        Note: This complex type is replacement for Payload.java
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="cuid" type="xs:long"/>
+                    <xs:element minOccurs="0" name="cuid2" type="xs:long">
+                        <xs:annotation>
+                            <xs:documentation>This element is filled only when action is Merge or Split. Contains CUID
+                                of second customer.
+
+                                - In case of Merge action it is customer which has been merged into cuid and was
+                                disabled.
+                                - In case of Split action it customer which has been splited from cuid and is now
+                                active.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="eventOriginator" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>System which initiated modification of customer in CIF (e.g. Homer).
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="externalId" type="xs:long"/>
+                    <xs:element name="resolvedManually" type="xs:string"/>
+                    <xs:element name="timeOfChange" type="xs:dateTime"/>
+                    <xs:element name="customer" type="CustomerNotification"/>
+                    <xs:element name="action" type="CustomerAction"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CustomerNotification">
+                <xs:annotation>
+                    <xs:documentation>Information about changes on customer.
+                        &lt;MOD IARU-393 RU 2011.02&gt;
+                        the structure is extended with new elements in accordance to the new Customer structure.&lt;/MOD&gt;</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="action" type="AttributeNotificationAction"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="customerAddress"
+                                type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="car" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="codeWord" type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="contact" type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="document" type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="employment"
+                                type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="fieldExperience" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="housingType" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="insider" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="motherName" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="politicallyExposedPerson" type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="realProperty"
+                                type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="relation" type="CustomerFeatureNotification"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="relContact"
+                                type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="resident" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="taxResident" type="CustomerFeatureNotification"/>
+                    <xs:element minOccurs="0" name="temporaryRegistration" type="CustomerFeatureNotification"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="CustomerAction">
+                <xs:annotation>
+                    <xs:documentation>Types of possible actions (changes) on customer.</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CUID"/>
+                    <xs:enumeration value="Merge"/>
+                    <xs:enumeration value="New"/>
+                    <xs:enumeration value="Refused"/>
+                    <xs:enumeration value="Split"/>
+                    <xs:enumeration value="Update"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:complexType abstract="true" name="AbstractAttributeNotification">
+                <xs:annotation>
+                    <xs:documentation>Defines shared elements of all complex types used in CustomerNotification complex
+                        type.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="attributeId" type="xs:long"/>
+                    <xs:element name="action" type="AttributeNotificationAction"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="AttributeNotificationAction">
+                <xs:annotation>
+                    <xs:documentation>Types of changes on customer attributes.</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="ADDED"/>
+                    <xs:enumeration value="DELETED"/>
+                    <xs:enumeration value="MODIFIED"/>
+                    <xs:enumeration value="NONE"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:complexType name="CustomerFeatureNotification">
+                <xs:complexContent>
+                    <xs:extension base="AbstractAttributeNotification">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="notificationAddress"
+                                        type="AbstractAttributeNotification">
+                                <xs:annotation>
+                                    <xs:documentation>&lt;MOD IARU-393 RU 2011.02&gt;
+                                        Notification of address changes is used only if the updated feature contains
+                                        embedded address element (employment). &lt;/MOD&gt;</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="notificationContact"
+                                        type="AbstractAttributeNotification">
+                                <xs:annotation>
+                                    <xs:documentation>&lt;MOD IARU-393 RU 2011.02&gt;
+                                        Notification of contact changes is used only if the updated feature contains
+                                        embedded contact element (employment). &lt;/MOD&gt;</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns="http://homecredit.net/homer/ws/cif/codelist/notification" attributeFormDefault="unqualified"
+                   elementFormDefault="unqualified"
+                   targetNamespace="http://homecredit.net/homer/ws/cif/codelist/notification">
+            <xs:complexType name="CodeListChange">
+                <xs:sequence>
+                    <xs:element name="name" type="CodeListName">
+                        <xs:annotation>
+                            <xs:documentation>Name of code list.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="updateId" type="xs:long"/>
+                    <xs:element name="timeStamp" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:documentation>Time stamp, informing a consumer about the date and time when the code
+                                book has been modified.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="CodeListName">
+                <xs:annotation>
+                    <xs:documentation>Enumeration of possible code list names.</xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="ADDRESS">
+                        <xs:annotation>
+                            <xs:documentation>An address codelist was changed.</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="COUNTRY_PHONE_CODE">
+                        <xs:annotation>
+                            <xs:documentation>A country phone codes codelist was changed.</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="AREA_PHONE_CODE">
+                        <xs:annotation>
+                            <xs:documentation>An area phone codes codelist was changed.</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="POSTAL_CODE">
+                        <xs:annotation>
+                            <xs:documentation>A postal codes codelist was changed.</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                    <xs:enumeration value="PASSPORT">
+                        <xs:annotation>
+                            <xs:documentation>A passport codelist was changed.</xs:documentation>
+                        </xs:annotation>
+                    </xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="ProcessCustomerNotificationResponse">
+        <wsdl:part element="tns:ProcessCustomerNotificationResponse" name="ProcessCustomerNotificationResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ProcessCustomerNotificationRequest">
+        <wsdl:part element="tns:ProcessCustomerNotificationRequest" name="ProcessCustomerNotificationRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ProcessCodeListNotificationRequest">
+        <wsdl:part element="tns:ProcessCodeListNotificationRequest" name="ProcessCodeListNotificationRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ProcessCodeListNotificationResponse">
+        <wsdl:part element="tns:ProcessCodeListNotificationResponse" name="ProcessCodeListNotificationResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="ConsumerWSPort">
+        <wsdl:operation name="ProcessCustomerNotification">
+            <wsdl:input message="tns:ProcessCustomerNotificationRequest" name="ProcessCustomerNotificationRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:ProcessCustomerNotificationResponse" name="ProcessCustomerNotificationResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProcessCodeListNotification">
+            <wsdl:input message="tns:ProcessCodeListNotificationRequest" name="ProcessCodeListNotificationRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:ProcessCodeListNotificationResponse" name="ProcessCodeListNotificationResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ConsumerWSPortSoap11" type="tns:ConsumerWSPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ProcessCustomerNotification">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ProcessCustomerNotificationRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ProcessCustomerNotificationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProcessCodeListNotification">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ProcessCodeListNotificationRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ProcessCodeListNotificationResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ConsumerWSPortService">
+        <wsdl:port binding="tns:ConsumerWSPortSoap11" name="ConsumerWSPortSoap11">
+            <soap:address
+                    location="https://homer-ws.test.itc.homecredit.ru:443/homer-ru42b1/homer/consumer/ConsumerWS"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

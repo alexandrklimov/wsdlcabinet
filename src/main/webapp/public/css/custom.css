@@ -1,0 +1,327 @@
+/**************************
+   Common elements tuning
+**************************/
+body {
+    padding-top: 50px;
+}
+
+.container{
+    max-width: 1900px;
+}
+
+table.custom-type-or-group-table{
+    width:auto;
+}
+/*********************************8*/
+
+
+.new, .changed, .changed_attr{
+    color: #FF0000;
+}
+.new a,
+.changed a{
+    text-decoration: none;
+    color: #FF0000;
+}
+
+.new a:hover,
+.changed a:hover{
+    text-decoration: none;
+    color: #FF0000;
+}
+
+a.new,
+a.changed{
+    color: #FF0000;
+}
+
+.delete{
+    color: #909090
+}
+.delete a{
+    text-decoration: none;
+    color: #909090;
+}
+.delete a:hover{
+    text-decoration: none;
+    color: #909090;
+}
+
+
+div.panel.type_or_group_section{
+    padding-right:0;
+    padding-left: 50px;
+    overflow-x: visible;
+    border: none;
+}
+
+table.indicator_or_nested_grp_view_table{
+    margin:0;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    position: relative;
+}
+
+table .head_row td,
+table .head_row th{
+    background-color: #EDEDED;
+}
+
+table tbody tr td.indicator_or_group_table_container{
+    padding:0;
+    background-color: #FAFAFA;
+    vertical-align: top;
+}
+
+td.strong_cell{
+    font-weight: bold;
+}
+
+/* Styles for element row changes */
+
+table tr.changed td{
+    background-color: #f2dede;
+}
+
+table tr.changed td a,
+table tr.deleted td a
+{
+    color:inherit;
+}
+
+table tr.changed td a:hover,
+table tr.deleted td a:hover
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+table tr.deleted td{
+    text-decoration: line-through;
+}
+
+/*/////////////////////////////////*/
+
+/* Styles for indicator changes */
+    /*new indicator*/
+table.indicator_or_nested_grp_view_table.indicator_new thead tr th,
+table.indicator_or_nested_grp_view_table.indicator_new thead tr td,
+table.indicator_or_nested_grp_view_table.indicator_new tbody tr td,
+{
+    background-color: #f2dede;
+}
+    /*changes in indicator attributes*/
+table.indicator_or_nested_grp_view_table thead tr.indicator_or_nested_grp_head th div.changed_attr{
+    color: #ff0000;
+}
+    /*deleted indicator*/
+table.indicator_or_nested_grp_view_table.indicator_deleted{
+    color: #d0d0d0;
+}
+table.indicator_or_nested_grp_view_table.indicator_deleted thead tr.indicator_or_nested_grp_head th div,
+table.indicator_or_nested_grp_view_table.indicator_deleted tbody tr td
+{
+    text-decoration: line-through;
+}
+table.indicator_or_nested_grp_view_table.indicator_deleted tbody tr td a,
+table.indicator_or_nested_grp_view_table.indicator_deleted tbody tr td a:hover
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+/*/////////////////////////////////*/
+
+/* Style of a table drawn as deleted */
+
+table.deleted_type_table{
+    color: #909090;
+    text-decoration: line-through;
+}
+
+table.deleted_type_table a{
+    text-decoration: none;
+    color: #909090;
+}
+table.deleted_type_table a:hover{
+    text-decoration: none;
+    color: #909090;
+}
+
+/*///////////////////////////////////*/
+
+.marker_new{
+    font-size: 0.6em;
+    position: relative;
+    top: -0.8em
+}
+
+.facet_div{
+    overflow:hidden;
+    padding-left:1em;
+    padding-right:1em;
+    border-style: solid;
+    border-width: 1px;
+    -moz-border-radius: 0.3em;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0.3em;
+}
+.facet_div:nth-child(odd){
+    background:inherit;
+    border-color: inherit;
+}
+.facet_div:nth-child(even){
+    background:#DDDDDD;
+    border-color:#DDDDDD;
+}
+
+.element_anchor{ color: inherit; }
+.element_anchor:hover{ text-decoration: none; }
+.ordinary_contents{font-size: 0.75em}
+
+#go_to_marker{
+    display: none;
+    list-style-type:disc;
+    list-style-position: outside;
+    font-size: 5em;
+    color:#FF0000;
+    position: absolute;
+}
+
+#go_to_content_marker{
+    font-size: 5em;
+    /*position: absolute;*/
+    /*top:50%;*/
+    left:2em;
+    /*cursor: hand;
+    cursor: pointer;*/
+}
+#go_to_content_marker a:hover{
+    text-decoration: none;
+}
+
+.content_marker{
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    /* IE 5-7 */
+    filter: alpha(opacity=30);
+    /* Netscape */
+    -moz-opacity: 0.3;
+    /* Safari 1.x */
+    -khtml-opacity: 0.3;
+    /* Good browsers */
+    opacity: 0.3;
+}
+
+.content_marker:hover{
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /* IE 5-7 */
+    filter: alpha(opacity=1);
+    /* Netscape */
+    -moz-opacity: 1;
+    /* Safari 1.x */
+    -khtml-opacity: 1;
+    /* Good browsers */
+    opacity: 1;
+}
+
+
+
+.break_par{
+    line-height:1em;
+}
+
+.opacty_50{
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    /* IE 5-7 */
+    filter: alpha(opacity=50);
+    /* Netscape */
+    -moz-opacity: 0.5;
+    /* Safari 1.x */
+    -khtml-opacity: 0.5;
+    /* Good browsers */
+    opacity: 0.5;
+}
+
+.opacty_0{
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /* IE 5-7 */
+    filter: alpha(opacity=0);
+    /* Netscape */
+    -moz-opacity: 0;
+    /* Safari 1.x */
+    -khtml-opacity: 0;
+    /* Good browsers */
+    opacity: 0;
+}
+
+/******************************
+    Table of contents
+******************************/
+#toc{
+    overflow: hidden;
+    padding:0;
+}
+#toc a, #toc a:hover, #toc a:visited, #toc a:active{
+    text-decoration: none;
+}
+
+#toc .toc_deleted,
+#toc a.toc_deleted
+/*#toc a:hover.toc_delete,
+#toc a:active.toc_delete,
+#toc a:visited.toc_delete*/
+{
+    text-decoration: line-through;
+}
+
+#toc ul{
+    list-style: none;
+    padding:0;
+}
+#toc li{
+    padding:0;
+    white-space: nowrap;
+}
+
+#toc > ul > li{
+    margin-bottom: 2em;
+}
+#toc > ul > li{
+    list-style: none;
+}
+
+#toc > ul > li > h4 a{
+    padding-left: 1em;
+}
+
+#toc > ul > li > ul > li{
+    margin-bottom: 0.5em;
+}
+
+
+#toc > ul > li > ul > li a {
+    padding-left: 2em;
+    padding-right: 0.5em;
+}
+#toc > ul > li > ul > li > ul > li> a {
+    padding-left: 3em;
+    padding-right: 0.5em;
+}
+#toc h4{
+    line-height: 1.5em;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+#toc h5{
+    padding:0;
+    margin:0;
+    line-height: 1.5em;
+}
+
+#toc .active{
+    background-color: rgb(210, 210, 210);
+}

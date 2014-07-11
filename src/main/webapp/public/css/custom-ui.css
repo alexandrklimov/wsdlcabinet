@@ -1,0 +1,18 @@
+.ui-accordion-header{
+    font-size: 1.3em;
+}
+
+.ui-accordion-content-active
+{
+    background-color: transparent;
+    background-image: none;
+}
+
+.ui-accordion-header-active{
+    background-color: #dedede;
+}
+
+.ui-accordion-header:hover{
+    background-color: #dfdfdf;
+}
+
