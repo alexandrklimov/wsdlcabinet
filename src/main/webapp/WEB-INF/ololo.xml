@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch0="http://homecredit.net/homer/ws/cif/consumer"
-                  xmlns:sch1="http://homecredit.net/homer/ws/cif/customer/notification"
-                  xmlns:sch2="http://homecredit.net/homer/ws/cif/codelist/notification"
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:tns="http://homecredit.net/homer/ws/cif/consumer"
-                  targetNamespace="http://homecredit.net/homer/ws/cif/consumer">
+                  xmlns:tns="http://ru.aklimov/wsdl/comp/test/consumer"
+                  targetNamespace="http://ru.aklimov/wsdl/comp/test/consumer">
     <wsdl:types>
-        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://homecredit.net/homer/ws/cif/consumer"
-                   xmlns:clc="http://homecredit.net/homer/ws/cif/codelist/notification"
-                   xmlns:cn="http://homecredit.net/homer/ws/cif/customer/notification"
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ru.aklimov/wsdl/comp/test/consumer"
+                   xmlns:clc="http://ru.aklimov/wsdl/comp/test/codelist/notification"
+                   xmlns:cn="http://ru.aklimov/wsdl/comp/test/customer/notification"
                    attributeFormDefault="unqualified" elementFormDefault="unqualified"
-                   targetNamespace="http://homecredit.net/homer/ws/cif/consumer">
+                   targetNamespace="http://ru.aklimov/wsdl/comp/test/consumer">
             <xs:annotation>
                 <xs:documentation>Web Service deployed on systems other than CIF. This web service is used for
                     processing
                     notifications from CIF.
                 </xs:documentation>
             </xs:annotation>
-            <xs:import namespace="http://homecredit.net/homer/ws/cif/customer/notification"/>
-            <xs:import namespace="http://homecredit.net/homer/ws/cif/codelist/notification"/>
+            <xs:import namespace="http://ru.aklimov/wsdl/comp/test/customer/notification"/>
+            <xs:import namespace="http://ru.aklimov/wsdl/comp/test/codelist/notification"/>
             <xs:element name="ProcessCustomerNotificationRequest">
                 <xs:complexType>
                     <xs:sequence>
@@ -47,9 +45,9 @@
             </xs:element>
         </xs:schema>
         <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                   xmlns="http://homecredit.net/homer/ws/cif/customer/notification" attributeFormDefault="unqualified"
+                   xmlns="http://ru.aklimov/wsdl/comp/test/customer/notification" attributeFormDefault="unqualified"
                    elementFormDefault="unqualified"
-                   targetNamespace="http://homecredit.net/homer/ws/cif/customer/notification">
+                   targetNamespace="http://ru.aklimov/wsdl/comp/test/customer/notification">
             <xs:annotation>
                 <xs:documentation>Notifikace o změnách na klientech jsou zasílány všem systémům po změně dat na
                     kterémkoli klientu v
@@ -83,7 +81,7 @@
                     </xs:element>
                     <xs:element name="eventOriginator" type="xs:string">
                         <xs:annotation>
-                            <xs:documentation>System which initiated modification of customer in CIF (e.g. Homer).
+                            <xs:documentation>System which initiated modification of customer in customer information file.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:element>
@@ -186,9 +184,9 @@
             </xs:complexType>
         </xs:schema>
         <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                   xmlns="http://homecredit.net/homer/ws/cif/codelist/notification" attributeFormDefault="unqualified"
+                   xmlns="http://ru.aklimov/wsdl/comp/test/codelist/notification" attributeFormDefault="unqualified"
                    elementFormDefault="unqualified"
-                   targetNamespace="http://homecredit.net/homer/ws/cif/codelist/notification">
+                   targetNamespace="http://ru.aklimov/wsdl/comp/test/codelist/notification">
             <xs:complexType name="CodeListChange">
                 <xs:sequence>
                     <xs:element name="name" type="CodeListName">
@@ -294,7 +292,7 @@
     <wsdl:service name="ConsumerWSPortService">
         <wsdl:port binding="tns:ConsumerWSPortSoap11" name="ConsumerWSPortSoap11">
             <soap:address
-                    location="https://homer-ws.test.itc.homecredit.ru:443/homer-ru42b1/homer/consumer/ConsumerWS"/>
+                    location="https://ololo/ConsumerWS"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

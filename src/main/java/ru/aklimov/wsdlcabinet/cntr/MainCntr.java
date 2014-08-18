@@ -1,6 +1,7 @@
 package ru.aklimov.wsdlcabinet.cntr;
 
 import org.springframework.util.StringUtils;
+import org.xml.sax.InputSource;
 import ru.aklimov.wsdlcabinet.CompareWsdlByURLDto;
 import ru.aklimov.wsdlcabinet.service.CompareWebReqValildator;
 import ru.aklimov.wsdlcabinet.service.ICompareService;
@@ -12,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.aklimov.wsdlcabinet.service.IHttpFileLoader;
+import ru.aklimov.wsdlcomparator.domain.CompareResult;
+import ru.aklimov.wsdlcomparator.facades.ICompFacade;
 
+import java.io.ByteArrayInputStream;
 import java.util.*;
 
 
@@ -26,6 +30,8 @@ public class MainCntr {
     IHttpFileLoader httpFileLoaderl;
     @Autowired
     ICompareService compService;
+    @Autowired
+    ICompFacade compFacade;
 
 
     @RequestMapping(value = {"/","/index"})
@@ -126,6 +132,47 @@ public class MainCntr {
         }
 
         return "error";
+    }
+
+    @RequestMapping(value = "/check_wsdl_for_changes", method = RequestMethod.POST)
+    @ResponseBody
+    public String checkWSDLForChanges(@RequestParam("newFile")MultipartFile newFile,
+                                  @RequestParam("oldFile")MultipartFile oldFile){
+        List<String> errsMsg = compareWebReqValild.validateFiles(newFile, oldFile);
+        if(!errsMsg.isEmpty()){
+            for(String msg: errsMsg){
+                log.error(msg);
+            }
+        } else {
+            try{
+                Map<String, Object> models = null;
+                if (oldFile.isEmpty() || newFile.isEmpty()) {
+                    String errMsg = "Both files must not be empty!";
+                    log.error(errMsg);
+                    return errMsg;
+
+                } else {
+                    InputSource newInSour = new InputSource( new ByteArrayInputStream(newFile.getBytes()) );
+                    InputSource oldInSour = new InputSource( new ByteArrayInputStream(oldFile.getBytes()) );
+                    CompareResult compareResult = compFacade.fullCompare(newInSour, null, oldInSour, null);
+                    if(compareResult.getGroupsDiff().isEmpty() &&
+                            compareResult.getTypesDiff().isEmpty() &&
+                            compareResult.getWsMethodDiff().isEmpty()){
+                        return Boolean.TRUE.toString();
+
+                    } else {
+                        return Boolean.FALSE.toString();
+
+                    }
+
+                }
+
+            } catch(Exception ex){
+                log.error("", ex);
+            }
+        }
+
+        return "ERROR";
     }
 
 

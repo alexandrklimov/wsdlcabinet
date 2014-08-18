@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
- * This class provides a remote file load service.<br/>
+ * This class provides a remote file load service.<br>
  * If an attempt of loading a remote file meets with authentication fail(401 ERROR) then
  * this service do one more attempt to load a remote file by a default login/password.
  */

@@ -47,20 +47,20 @@ public class CompareWebReqValildator {
     /**
      * Check xml-file firs-line signature
      *
-     * @param newFileContent
-     * @return
+     * @param fileContent a file content as a bytes array
+     * @return list of error messages
      */
-    public List<String> validateXMLSignature(byte[] newFileContent){
-        return validateXMLSignature(newFileContent, new byte[]{});
+    public List<String> validateXMLSignature(byte[] fileContent){
+        return validateXMLSignature(fileContent, new byte[]{});
     }
 
 
     /**
      * Check xml-file firs-line signature
      *
-     * @param newFileContent
-     * @param oldFileContent
-     * @return
+     * @param newFileContent new wsdl file bytes array
+     * @param oldFileContent old wsdl file bytes array
+     * @return list of error messages
      */
     public List<String> validateXMLSignature(byte[] newFileContent, byte[] oldFileContent) {
         List<String> errorsMsgs = new LinkedList<>();
