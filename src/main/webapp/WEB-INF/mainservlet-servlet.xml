@@ -16,7 +16,7 @@
     <mvc:resources mapping="/resources/**" location="/public/"/>
 
     <bean id="compFacade" class="ru.aklimov.wsdlcomparator.facades.impl.CompFacade"/>
-    <bean id="viewModelCreator" class="ru.aklimov.wsdlcomparator.ViewModelCreator"/>
+    <bean id="viewModelCreator" class="ru.aklimov.wsdlcomparator.modelbuilders.ViewModelCreator"/>
     <bean id="methodModelCreatorFacade" class="ru.aklimov.wsdlcomparator.facades.impl.MethodModelCreatorFacade"/>
     <bean id="typeModelCreatorFacade" class="ru.aklimov.wsdlcomparator.facades.impl.TypeModelCreatorFacade"/>
     <bean id="compareService" class="ru.aklimov.wsdlcabinet.service.CompareService"/>
@@ -31,7 +31,7 @@
             <map>
                 <entry key="contextPath" value="#{ servletContext.getContextPath() }"/>
                 <entry key="TYPE_TABLE_ID_PREFIX">
-                    <util:constant static-field="ru.aklimov.wsdlcomparator.ViewModelCreator.TYPE_TABLE_ID_PREFIX"/>
+                    <util:constant static-field="ru.aklimov.wsdlcomparator.modelbuilders.ViewModelCreator.TYPE_TABLE_ID_PREFIX"/>
                 </entry>
             </map>
         </property>

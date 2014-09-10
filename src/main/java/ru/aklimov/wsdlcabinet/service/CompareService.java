@@ -1,6 +1,7 @@
 package ru.aklimov.wsdlcabinet.service;
 
-import ru.aklimov.wsdlcomparator.ViewModelCreator;
+import ru.aklimov.wsdlcomparator.domain.tblmodel.method.WSMethodDescrTable;
+import ru.aklimov.wsdlcomparator.modelbuilders.ViewModelCreator;
 import ru.aklimov.wsdlcomparator.WSDLProcessor;
 import ru.aklimov.wsdlcomparator.domain.tblmodel.*;
 import ru.aklimov.wsdlcomparator.domain.CompareResult;
@@ -75,7 +76,7 @@ public class CompareService implements ICompareService {
             }
 
             Set<WSMethodDescrTable> wsMethods = methodModelCreator.createWSMethodModelByDiffInfo(fullCompareRes.getWsMethodDiff(), modelByDiffInfoSet.getTableTypeSet(), modelByDiffInfoSet.getTableGroupSet());
-            Set<TypeDescrTable> filteredTables = viewModelCreator.filterTableSetFromWSMethodTypes(modelByDiffInfoSet.getTableTypeSet(), wsMethods);
+            Set<TypeDescrTable> filteredTables = viewModelCreator.filterTableSetFromMessagePartTypes(modelByDiffInfoSet.getTableTypeSet(), wsMethods);
 
             Set<String> tableIds = new HashSet<>();
             tableIds.addAll( getTableIdsSet( modelByDiffInfoSet.getTableTypeSet() ) );
@@ -140,7 +141,7 @@ public class CompareService implements ICompareService {
             }
 
             Set<WSMethodDescrTable> wsMethods = methodModelCreator.createWSMethodModelByWSMethodDescr(wsdlProcessingResult.getWsMethodDescr(), modelsBySet.getTableTypeSet(), modelsBySet.getTableGroupSet());
-            Set<TypeDescrTable> filteredTables = viewModelCreator.filterTableSetFromWSMethodTypes(modelsBySet.getTableTypeSet(), wsMethods);
+            Set<TypeDescrTable> filteredTables = viewModelCreator.filterTableSetFromMessagePartTypes(modelsBySet.getTableTypeSet(), wsMethods);
 
             Set<String> tableIds = new HashSet<>();
             tableIds.addAll( getTableIdsSet( modelsBySet.getTableTypeSet() ) );
