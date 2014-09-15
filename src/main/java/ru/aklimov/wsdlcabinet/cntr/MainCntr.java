@@ -49,6 +49,7 @@ public class MainCntr {
         if(!errsMsg.isEmpty()){
             model.addAttribute("error", true);
             model.addAttribute("errorMsgLst", errsMsg);
+
         } else {
             model.addAttribute("error", false);
             try{
@@ -67,7 +68,9 @@ public class MainCntr {
                 model.addAttribute("error", true);
                 model.addAttribute("errorMsg", ex.getMessage());
                 log.error("", ex);
+
             }
+
         }
 
         return "error";

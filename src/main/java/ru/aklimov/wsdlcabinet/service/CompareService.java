@@ -1,6 +1,7 @@
 package ru.aklimov.wsdlcabinet.service;
 
 import ru.aklimov.wsdlcomparator.domain.tblmodel.method.WSMethodDescrTable;
+import ru.aklimov.wsdlcomparator.modelbuilders.PostCreationUtils;
 import ru.aklimov.wsdlcomparator.modelbuilders.ViewModelCreator;
 import ru.aklimov.wsdlcomparator.WSDLProcessor;
 import ru.aklimov.wsdlcomparator.domain.tblmodel.*;
@@ -76,7 +77,7 @@ public class CompareService implements ICompareService {
             }
 
             Set<WSMethodDescrTable> wsMethods = methodModelCreator.createWSMethodModelByDiffInfo(fullCompareRes.getWsMethodDiff(), modelByDiffInfoSet.getTableTypeSet(), modelByDiffInfoSet.getTableGroupSet());
-            Set<TypeDescrTable> filteredTables = viewModelCreator.filterTableSetFromMessagePartTypes(modelByDiffInfoSet.getTableTypeSet(), wsMethods);
+            Set<TypeDescrTable> filteredTables = PostCreationUtils.filterTableSetFromMessagePartTypes(modelByDiffInfoSet.getTableTypeSet(), wsMethods);
 
             Set<String> tableIds = new HashSet<>();
             tableIds.addAll( getTableIdsSet( modelByDiffInfoSet.getTableTypeSet() ) );
@@ -141,7 +142,7 @@ public class CompareService implements ICompareService {
             }
 
             Set<WSMethodDescrTable> wsMethods = methodModelCreator.createWSMethodModelByWSMethodDescr(wsdlProcessingResult.getWsMethodDescr(), modelsBySet.getTableTypeSet(), modelsBySet.getTableGroupSet());
-            Set<TypeDescrTable> filteredTables = viewModelCreator.filterTableSetFromMessagePartTypes(modelsBySet.getTableTypeSet(), wsMethods);
+            Set<TypeDescrTable> filteredTables = PostCreationUtils.filterTableSetFromMessagePartTypes(modelsBySet.getTableTypeSet(), wsMethods);
 
             Set<String> tableIds = new HashSet<>();
             tableIds.addAll( getTableIdsSet( modelsBySet.getTableTypeSet() ) );
@@ -162,7 +163,7 @@ public class CompareService implements ICompareService {
 
 
     public Set<TablePresentedDescriptor> getCompactModels(Set<? extends TablePresentedDescriptor> tables){
-        return viewModelCreator.compactModel(tables);
+        return PostCreationUtils.compactModel(tables);
     }
 
     private Set<String> getTableIdsSet(Set<TypeDescrTable> types) {
