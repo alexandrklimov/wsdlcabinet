@@ -180,8 +180,8 @@ public class MainCntr {
 
 
     private void fillResultModel(Model model, Map<String, Object> models) {
-        if (models.containsKey("methods")) {
-            model.addAttribute( "methods", new LinkedList((Collection) models.get("methods")) );
+        if (models.containsKey("portTypesMap")) {
+            model.addAttribute( "portTypesMap", models.get("portTypesMap"));
         }
         if (models.containsKey("types")) {
             model.addAttribute( "types", new LinkedList((Collection) models.get("types")) );

@@ -14,10 +14,7 @@ import ru.aklimov.wsdlcomparator.facades.IMethodModelCreatorFacade;
 import ru.aklimov.wsdlcomparator.facades.ITypeModelCreatorFacade;
 
 import java.io.ByteArrayInputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -83,7 +80,9 @@ public class CompareService implements ICompareService {
             tableIds.addAll( getTableIdsSet( modelByDiffInfoSet.getTableTypeSet() ) );
             tableIds.addAll( getGroupIdsSet( modelByDiffInfoSet.getTableGroupSet() ) );
 
-            resMap.put("methods", wsMethods);
+            Map<String, List<WSMethodDescrTable>> portTypesMap = PostCreationUtils.groupMethodsByPortType(wsMethods);
+
+            resMap.put("portTypesMap", portTypesMap);
             resMap.put("types", filteredTables);
             resMap.put("groups", modelByDiffInfoSet.getTableGroupSet());
             resMap.put("tablesIds", tableIds);
@@ -148,7 +147,9 @@ public class CompareService implements ICompareService {
             tableIds.addAll( getTableIdsSet( modelsBySet.getTableTypeSet() ) );
             tableIds.addAll( getGroupIdsSet( modelsBySet.getTableGroupSet() ) );
 
-            resMap.put("methods", wsMethods);
+            Map<String, List<WSMethodDescrTable>> portTypesMap = PostCreationUtils.groupMethodsByPortType(wsMethods);
+
+            resMap.put("portTypesMap", portTypesMap);
             resMap.put("types", filteredTables);
             resMap.put("groups", modelsBySet.getTableGroupSet());
             resMap.put("tablesIds", tableIds);

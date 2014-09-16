@@ -25,7 +25,7 @@
     </nav>
 
     <div class="ui-layout-west">
-        [@toc.tocDraw methods=methods types=types/]
+        [@toc.tocDraw portTypesMap=portTypesMap types=types/]
     </div>
 
     <div class="ui-layout-center" id="ui-layout-center">
@@ -41,7 +41,7 @@
                     а выходным checkContractForRepaymentResponse). Это соглашение действует для всех методов, поэтому при описании будет опускаться.
                 </strong>
             </div>
-            [#include "result_content.ftl"/]
+            [#--[#include "result_content.ftl"/]--]
         [/#compress]
     </div>
 

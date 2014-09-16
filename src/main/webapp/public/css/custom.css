@@ -287,6 +287,9 @@ table.deleted_type_table a:hover{
     white-space: nowrap;
 }
 
+#toc > ul > li:first-child{
+    margin-bottom: 2.5em;
+}
 #toc > ul > li{
     margin-bottom: 2em;
 }
@@ -298,6 +301,9 @@ table.deleted_type_table a:hover{
     padding-left: 1em;
 }
 
+#toc > ul > li:first-child > ul > li{
+    margin-bottom: 1.5em;
+}
 #toc > ul > li > ul > li{
     margin-bottom: 0.5em;
 }
@@ -307,8 +313,15 @@ table.deleted_type_table a:hover{
     padding-left: 2em;
     padding-right: 0.5em;
 }
-#toc > ul > li > ul > li > ul > li> a {
+#toc > ul > li > ul > li > ul > li > h6{
+    margin-bottom: 0.3em;
+}
+#toc > ul > li > ul > li > ul > li > h6 > a {
     padding-left: 3em;
+    padding-right: 0.5em;
+}
+#toc > ul > li > ul > li > ul > li > ul > li > a {
+    padding-left: 4em;
     padding-right: 0.5em;
 }
 #toc h4{

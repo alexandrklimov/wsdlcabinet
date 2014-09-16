@@ -1,53 +1,21 @@
 [#ftl]
-[#macro tocDraw methods types]
+[#macro tocDraw portTypesMap types]
 [#compress]
     <div id="toc" class="well">
         <ul>
             <li>
-                <h4><a href="#ws_methods_anchor">Methods</a></h4>
+                <h4><a href="#port_types_anchor">Port Types</a></h4>
                 <ul>
-                    [#list methods as method]
-                        <li>
-                            <h5 [#if method.changeType?? && method.changeType!="DELETE"]class="new"[/#if]>
-                                <a href="#${method.methodName}">
-                                    ${method.methodName}[#if method.changedType?? && method.changedType=="NEW"]&nbsp;(NEW)[/#if]
-                                </a>
-                            </h5>
-                            <ul>
-                                <li>
-                                    <a href="#${method.methodName+'_input_param'}"
-                                        [#if method.changeType?? && method.changeType!="NEW"]
-                                            [#if method.requestParams.isNew()]
-                                                class="new"
-                                            [#elseif method.requestParams.isChanged()]
-                                                class="changed"
-                                            [/#if]
-                                        [#elseif method.changeType?? && method.changeType=="NEW"]
-                                            class="new"    
-                                        [/#if]                                       
-                                    >
-                                        Input parameters
-                                    </a>
-                                </li>
-                                [#if method.responseParams??]
-                                    <li>
-                                        <a href="#${method.methodName+'_output_param'}"
-                                            [#if method.changeType?? && method.changeType!="NEW"]
-                                                [#if method.responseParams.isNew()]
-                                                    class="new"
-                                                [#elseif method.responseParams.isChanged()]
-                                                    class="changed"
-                                                [/#if]
-                                            [#elseif method.changeType?? && method.changeType=="NEW"]
-                                                class="new"
-                                            [/#if]
-                                        >
-                                            Output parameters[#if method.responseParams.isNew()]&nbsp;(NEW)[/#if]
-                                        </a>
-                                    </li>
-                                [/#if]
-                            </ul>
-                        </li>
+                    [#list portTypesMap?keys as portType]
+                    <li>
+                        <h5><a href="#${portType+'_port_type'}">${portType}</a></h5>
+                        <ul>
+                            [#assign methods=portTypesMap[portType] /]
+                            [#list methods as method]
+                                [@drawMethodToc method/]
+                            [/#list]
+                        </ul>
+                    </li>
                     [/#list]
                 </ul>
             </li>
@@ -91,5 +59,42 @@
             [/#if]
         </ul>
     </div>
+[/#compress]
+[/#macro]
+
+
+[#macro drawMethodToc method]
+[#compress]
+<li>
+    <h6 [#if method.changeType?? && method.changeType!="DELETE"]class="new"[/#if]>
+        <a href="#${method.methodName+'_operation'}">
+        ${method.methodName}[#if method.changedType?? && method.changedType=="NEW"]&nbsp;(NEW)[/#if]
+        </a>
+    </h6>
+    <ul>
+        <li>
+            <a href="#${method.methodName+'_input_message'}">
+                <h7>Input message</h7>
+            </a>
+        </li>
+        [#if method.outputMessage?? && method.outputMessage?size != 0]
+            <li>
+                <a href="#${method.methodName+'_output_message'}"
+                    [#if method.changeType?? && method.changeType!="NEW"]
+                        [#if method.changeType == "RESPONSE_ADD"]
+                   class="new"
+                        [#elseif method.changeType == "RESPONSE_DEL"]
+                   class="toc_deleted"
+                        [/#if]
+                    [#elseif method.changeType?? && method.changeType=="NEW"]
+                   class="new"
+                    [/#if]
+                        >
+                    <h7>Output message[#if method.changeType?? && method.changeType == "RESPONSE_ADD"]&nbsp;(NEW)[/#if]</h7>
+                </a>
+            </li>
+        [/#if]
+    </ul>
+</li>
 [/#compress]
 [/#macro]

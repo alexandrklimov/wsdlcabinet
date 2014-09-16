@@ -31,7 +31,7 @@
             <map>
                 <entry key="contextPath" value="#{ servletContext.getContextPath() }"/>
                 <entry key="TYPE_TABLE_ID_PREFIX">
-                    <util:constant static-field="ru.aklimov.wsdlcomparator.modelbuilders.ViewModelCreator.TYPE_TABLE_ID_PREFIX"/>
+                    <util:constant static-field="ru.aklimov.wsdlcomparator.modelbuilders.Constants.TYPE_TABLE_ID_PREFIX"/>
                 </entry>
             </map>
         </property>
